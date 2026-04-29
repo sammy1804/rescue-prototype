@@ -1,6 +1,6 @@
 // Home / Discovery — rebuilt to Figma direction with hierarchy fixes
 
-function HomeHero() {
+function HomeHero({ onStore }) {
   const [idx, setIdx] = React.useState(0);
   React.useEffect(() => { const id = setInterval(() => setIdx(p => (p + 1) % 3), 4000); return () => clearInterval(id); }, []);
   return (
@@ -28,7 +28,7 @@ function HomeHero() {
       {/* Real H1 — Fraunces */}
       <H1 style={{ marginBottom: 14 }}>Good morning,<br/><span style={{ fontStyle: 'italic', color: T.RED }}>Rescuer.</span></H1>
 
-      <button style={{ background: '#fff', border: `1.5px solid ${T.INK}`, color: T.INK, padding: '8px 18px', borderRadius: 100, fontFamily: T.SANS, fontWeight: 600, fontSize: 13, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 16 }}>
+      <button onClick={onStore} style={{ background: '#fff', border: `1.5px solid ${T.INK}`, color: T.INK, padding: '8px 18px', borderRadius: 100, fontFamily: T.SANS, fontWeight: 600, fontSize: 13, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 16 }}>
         Explore Now <span>→</span>
       </button>
 
@@ -61,7 +61,7 @@ function WasteBanner() {
   );
 }
 
-function CategoryRow() {
+function CategoryRow({ onStore }) {
   // Use food image thumbnails instead of emoji per audit
   const cats = [
     { id: 'again', label: 'Buy it again', img: FOOD.croissant },
@@ -73,7 +73,7 @@ function CategoryRow() {
   return (
     <div style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 18px' }} className="no-scroll">
       {cats.map(c => (
-        <button key={c.id} style={{ flexShrink: 0, background: 'transparent', border: 0, cursor: 'pointer', textAlign: 'center', padding: 0 }}>
+        <button key={c.id} onClick={onStore} style={{ flexShrink: 0, background: 'transparent', border: 0, cursor: 'pointer', textAlign: 'center', padding: 0 }}>
           <div style={{ width: 56, height: 56, borderRadius: '50%', overflow: 'hidden', border: `1px solid ${T.HAIR}`, marginBottom: 6 }}>
             <img src={c.img} alt={c.label} style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
           </div>
@@ -126,7 +126,7 @@ function SectionHeader({ dot, label, count, action }) {
   );
 }
 
-function EndingSoonRow() {
+function EndingSoonRow({ onStore }) {
   const items = [
     { name: 'Bread And Co', drop: 55, time: '0:47:08', img: FOOD.cake, store: 'Strawberry' },
     { name: 'Bread And Co', drop: 55, time: '0:47:08', img: FOOD.swissroll, store: 'Swiss Roll' },
@@ -135,7 +135,7 @@ function EndingSoonRow() {
   return (
     <div style={{ display: 'flex', gap: 12, padding: '0 16px 20px', overflowX: 'auto' }} className="no-scroll">
       {items.map((it, i) => (
-        <div key={i} style={{ flexShrink: 0, width: 150, background: '#fff', borderRadius: 12, overflow: 'hidden', border: `1px solid ${T.HAIR}` }}>
+        <div key={i} onClick={onStore} style={{ flexShrink: 0, width: 150, background: '#fff', borderRadius: 12, overflow: 'hidden', border: `1px solid ${T.HAIR}`, cursor: 'pointer' }}>
           <div style={{ position: 'relative', height: 100 }}>
             <img src={it.img} style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
             <div style={{ position: 'absolute', top: 8, left: 8, background: '#fff', padding: '3px 7px', borderRadius: 100, fontFamily: T.SANS, fontWeight: 700, fontSize: 9, color: T.RED, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>{it.drop}% DROP</div>
@@ -187,7 +187,7 @@ function NearbyList({ onStore }) {
   );
 }
 
-function Save80Banner() {
+function Save80Banner({ onStore }) {
   return (
     <div style={{ margin: '0 16px 18px', position: 'relative', height: 130, borderRadius: 12, overflow: 'hidden' }}>
       <img src={FOOD.restaurant} style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
@@ -197,13 +197,13 @@ function Save80Banner() {
           <Eyebrow color="rgba(255,227,82,1)">EXCLUSIVE OFFERS</Eyebrow>
           <H2 color="#fff" style={{ marginTop: 4 }}>Save 80%</H2>
         </div>
-        <button style={{ alignSelf: 'flex-start', background: T.RED, color: '#fff', border: 0, padding: '8px 18px', borderRadius: 100, fontFamily: T.SANS, fontWeight: 600, fontSize: 12, cursor: 'pointer' }}>Explore</button>
+        <button onClick={onStore} style={{ alignSelf: 'flex-start', background: T.RED, color: '#fff', border: 0, padding: '8px 18px', borderRadius: 100, fontFamily: T.SANS, fontWeight: 600, fontSize: 12, cursor: 'pointer' }}>Explore</button>
       </div>
     </div>
   );
 }
 
-function MostDiscountedRow() {
+function MostDiscountedRow({ onStore }) {
   const items = [
     { name: 'Strawberry', tag: 'Sold out', sold: true, was: 240, now: 60, time: '2H LEFT', img: FOOD.cake },
     { name: 'Swiss Roll', tag: 'Berries', sold: false, was: 240, now: 60, time: '2H LEFT', img: FOOD.swissroll },
@@ -221,7 +221,7 @@ function MostDiscountedRow() {
                 <div style={{ background: T.INK, color: '#fff', padding: '4px 10px', fontFamily: T.SANS, fontWeight: 700, fontSize: 11, transform: 'rotate(-6deg)', border: '1.5px solid #fff' }}>SOLD OUT</div>
               </div>
             )}
-            {!it.sold && <button style={{ position: 'absolute', bottom: 8, right: 8, width: 24, height: 24, borderRadius: '50%', background: T.RED, border: 0, color: '#fff', fontFamily: T.DISPLAY, fontSize: 18, lineHeight: 1, cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.2)' }}>+</button>}
+            {!it.sold && <button onClick={onStore} style={{ position: 'absolute', bottom: 8, right: 8, width: 24, height: 24, borderRadius: '50%', background: T.RED, border: 0, color: '#fff', fontFamily: T.DISPLAY, fontSize: 18, lineHeight: 1, cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.2)' }}>+</button>}
           </div>
           <div style={{ padding: 10 }}>
             <div style={{ background: it.sold ? T.HAIR : T.AMBER, padding: '2px 6px', borderRadius: 4, fontFamily: T.SANS, fontWeight: 600, fontSize: 9, color: it.sold ? T.MUTED : T.AMBER_INK, display: 'inline-block', marginBottom: 6 }}>{it.tag}</div>
@@ -242,17 +242,17 @@ function Home({ onStore, onTab, cartCount }) {
     <div style={{ position: 'absolute', inset: 0, background: T.BG, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       <StatusBar/>
       <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 80 }}>
-        <HomeHero/>
+        <HomeHero onStore={onStore}/>
         <WasteBanner/>
-        <CategoryRow/>
+        <CategoryRow onStore={onStore}/>
         <SurpriseGiftCard/>
         <SectionHeader dot={T.RED} label="Ending Soon" count="3 ALERTS"/>
-        <EndingSoonRow/>
+        <EndingSoonRow onStore={onStore}/>
         <SectionHeader dot={T.GREEN} label="Nearby Restaurants" count="7 OUTLETS" action="Favorites"/>
         <NearbyList onStore={onStore}/>
-        <Save80Banner/>
+        <Save80Banner onStore={onStore}/>
         <SectionHeader dot={T.RED} label="Most Discounted" count="7 OUTLETS"/>
-        <MostDiscountedRow/>
+        <MostDiscountedRow onStore={onStore}/>
       </div>
       <BottomNav active="home" onTab={onTab} cartCount={cartCount}/>
       <HomeIndicator/>

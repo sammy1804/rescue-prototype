@@ -280,7 +280,7 @@ function Checkout({ cart, total, pickup, mode, store, onPlace, onBack }) {
   );
 }
 
-function Confirmation({ store, pickup, mode, code, total, saved, onPassport, onDone }) {
+function Confirmation({ store, pickup, mode, code, total, saved, onScratch, onDone }) {
   const isDelivery = mode === 'delivery';
   return (
     <div style={{ position: 'absolute', inset: 0, background: T.BG, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
@@ -385,7 +385,7 @@ function Confirmation({ store, pickup, mode, code, total, saved, onPassport, onD
         </div>
 
         {/* Scratch card teaser */}
-        <div className="fade-up delay5" onClick={onPassport} style={{ margin: '12px 16px', background: `linear-gradient(135deg, ${T.GOLD} 0%, #B68A3A 100%)`, borderRadius: 12, padding: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div className="fade-up delay5" onClick={onScratch} style={{ margin: '12px 16px', background: `linear-gradient(135deg, ${T.GOLD} 0%, #B68A3A 100%)`, borderRadius: 12, padding: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ fontSize: 28 }}>🎰</div>
           <div style={{ flex: 1 }}>
             <Title color="#1A0A09">You earned a scratch card!</Title>
@@ -442,4 +442,4 @@ function Passport({ user, onBack, onTab, cartCount }) {
   );
 }
 
-Object.assign(window, { Cart, Checkout, Confirmation, Passport });
+Object.assign(window, { Cart, Checkout, Confirmation, Passport, SurpriseGiftModal, ScratchCard });
